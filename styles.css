@@ -80,3 +80,28 @@ body {
 .run-btn:active {
     transform: translateY(0);
 }
+
+.add-btn {
+    float: right;
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: #4CAF50;
+    color: white;
+    font-weight: bold;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -3px;
+}
+
+.add-btn:hover {
+    background: #45a049;
+}
+
+.editor {
+    flex: 1;
+    border: none;
+    background: #1e1e1e;
+    position: relative;
+    min-height: 200px;
+}

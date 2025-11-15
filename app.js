@@ -1,5 +1,5 @@
 let canvas;
-let editor;
+let toolboxCounter = 0;
 
 function initCanvas() {
     const container = document.querySelector('.container');
@@ -9,7 +9,7 @@ function initCanvas() {
 
     canvas = new fabric.Canvas('canvas');
     initEditor();
-    makeToolboxDraggable();
+    makeToolboxDraggable(document.getElementById('toolbox'));
     resizeCanvas();
 
     window.addEventListener('resize', resizeCanvas);
@@ -27,25 +27,21 @@ function initEditor() {
     });
 }
 
-function makeToolboxDraggable() {
-    const toolbox = document.getElementById('toolbox');
+function makeToolboxDraggable(el) {
+    const header = el.querySelector('.title');
     let isDragging = false;
     let offsetX, offsetY;
 
-    toolbox.addEventListener('mousedown', (e) => {
-        if (e.target === toolbox || e.target.classList.contains('title')) {
-            isDragging = true;
-            offsetX = e.clientX - toolbox.getBoundingClientRect().left;
-            offsetY = e.clientY - toolbox.getBoundingClientRect().top;
-        }
+    header.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        offsetX = e.clientX - el.getBoundingClientRect().left;
+        offsetY = e.clientY - el.getBoundingClientRect().top;
     });
 
     document.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
-        toolbox.style.left = `${e.clientX - offsetX}px`;
-        toolbox.style.top = `${e.clientY - offsetY}px`;
-        toolbox.style.right = 'auto';
-        toolbox.style.bottom = 'auto';
+        el.style.left = `${e.clientX - offsetX}px`;
+        el.style.top = `${e.clientY - offsetY}px`;
     });
 
     document.addEventListener('mouseup', () => {
@@ -62,6 +58,56 @@ function runCode() {
     }
 }
 
+function createToolbox(x, y) {
+    const id = 'toolbox-' + Date.now();
+    const toolbox = document.createElement('div');
+    toolbox.className = 'toolbox';
+    toolbox.id = id;
+    toolbox.style.left = x + 'px';
+    toolbox.style.top = y + 'px';
+
+    const title = document.createElement('div');
+    title.className = 'title';
+    title.innerHTML = `🔧 Script ${++toolboxCounter} <button class="close-btn" onclick="document.getElementById('${id}').remove()">×</button>`;
+    toolbox.appendChild(title);
+
+    const editorContainer = document.createElement('div');
+    editorContainer.className = 'editor';
+    editorContainer.id = `editor-${id}`;
+    toolbox.appendChild(editorContainer);
+
+    const runBtn = document.createElement('button');
+    runBtn.className = 'run-btn';
+    runBtn.textContent = '▶️ Run';
+    runBtn.onclick = () => runCodeIn(id);
+    toolbox.appendChild(runBtn);
+
+    document.body.appendChild(toolbox);
+    makeToolboxDraggable(toolbox);
+
+    // Ensure DOM is updated before initializing Ace
+    setTimeout(() => {
+        const aceEditor = ace.edit(editorContainer); // Pass element directly
+        aceEditor.setTheme("ace/theme/monokai");
+        aceEditor.session.setMode("ace/mode/javascript");
+        aceEditor.setFontSize(14);
+    }, 10);
+}
+
+function runCodeIn(id) {
+    const editor = ace.edit(`editor-${id}`);
+    const code = editor.getValue();
+    try {
+        eval(code);
+    } catch (e) {
+        alert('Error: ' + e.message);
+    }
+}
+
+document.getElementById('addToolbox').addEventListener('click', () => {
+    createToolbox(300 + (toolboxCounter * 60), 100 + (toolboxCounter * 60));
+});
+
 function resizeCanvas() {
     const container = document.querySelector('.container');
     canvas.setDimensions({
@@ -70,4 +116,4 @@ function resizeCanvas() {
     });
 }
 
-window.onload = initCanvas;   
+window.onload = initCanvas;
