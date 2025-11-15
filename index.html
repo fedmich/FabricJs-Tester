@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,23 +9,25 @@
   <!-- Include Ace Editor -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
 </head>
+
 <body>
   <div class="container"></div>
 
   <div class="toolbox" id="toolbox">
     <div class="title">🔧 Toolbox</div>
     <div id="editor">const rect = new fabric.Rect({
-        left: 100,
-        top: 100,
-        width: 80,
-        height: 80,
-            fill: 'blue'
-        });
-        canvas.add(rect);</div>
+      left: 100,
+      top: 100,
+      width: 80,
+      height: 80,
+      fill: 'blue'
+      });
+      canvas.add(rect);</div>
     <button onclick="runCode()" class="run-btn">▶️ Run Code</button>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
   <script src="app.js"></script>
 </body>
-</html>   
+
+</html>
