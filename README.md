@@ -14,6 +14,10 @@ A dynamic canvas development environment built with Fabric.js and Ace editor for
 
 ## Usage
 
+You can use the app on this link
+[https://fedmich.github.io/FabricJs-Tester/](https://fedmich.github.io/FabricJs-Tester/)
+
+## Usage 2
 1. Clone the repo
 2. Open `index.html` in a browser
 3. Write Fabric.js code in any toolbox
