@@ -13,7 +13,14 @@
 
   <div class="toolbox" id="toolbox">
     <div class="title">🔧 Toolbox</div>
-    <div id="editor">const rect = new fabric.Rect({\n  left: 100,\n  top: 100,\n  width: 80,\n  height: 80,\n  fill: 'blue'\n});\ncanvas.add(rect);</div>
+    <div id="editor">const rect = new fabric.Rect({
+        left: 100,
+        top: 100,
+        width: 80,
+        height: 80,
+            fill: 'blue'
+        });
+        canvas.add(rect);</div>
     <button onclick="runCode()" class="run-btn">▶️ Run Code</button>
   </div>
 
