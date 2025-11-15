@@ -28,3 +28,7 @@ You can use the app on this link
 - `index.html` - Main page
 - `app.js` - Application logic
 - `styles.css` - Styling   
+
+<a href="https://www.buymeacoffee.com/fedmich" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174">
+</a>   
